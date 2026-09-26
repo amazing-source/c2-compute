@@ -38,6 +38,7 @@ run)
            else echo "SAT $2: UNKNOWN (cadical rc $rc after $3 s)" >> logs/cloud_worker.log; fi
            true ;;
       g18t1) mkdir -p logs/c1_g18t1 && (cd scripts/c1 && Q7_POINTWISE=1 python3 q7_t1_cpsat.py $2 $3 $4 > ../../logs/c1_g18t1/$2.out 2>&1) && echo "G18T1 $2: $(tail -n 1 logs/c1_g18t1/$2.out | cut -c1-80)" >> logs/cloud_worker.log ;;
+      rt)  SMOOTH=0.6 LOWMEM=1 TL=6000 python3 scripts/root_job.py $2 $3 >> logs/cloud_worker.log 2>&1 ;;
       g18r) mkdir -p logs/c1_g18_regimes && (cd scripts/c1 && Q7_POINTWISE=1 python3 q7_g18_regimes.py $2 $3 $4 100000 >> ../../logs/cloud_worker.log 2>&1 && mv g18_regimes_*.json ../../logs/c1_g18_regimes/) ;;
     esac && touch "logs/cloud_done/$key"
   }
@@ -46,10 +47,10 @@ run)
   grep -v -E '^(gen|adr) ' "$T" | grep -v '^$' | xargs -P "$P" -I{} bash -c 'one "{}"'
   echo "WORKER DONE $T" >> logs/cloud_worker.log ;;
 status)
-  T=$1; tot=$(grep -c . "$T"); done=$(ls logs/cloud_done 2>/dev/null | wc -l)
-  echo "$done/$tot $(grep -h -E 'GEN|RUN|ORIENT|UFIX|CHUNK|alive classes|FB |ADR|ADT|G18C|G18T1|SAT |INFEASIBLE|FEASIBLE|WORKER DONE|Error|Traceback' logs/cloud_worker.log 2>/dev/null | tail -n 1 | cut -c1-150)" ;;
+  T=$1; tot=$(grep -c . "$T"); done=0; while read -r l; do [ -n "$l" ] && [ -f "logs/cloud_done/$(echo "$l" | tr ' /' '__')" ] && done=$((done+1)); done < "$T"
+  echo "$done/$tot $(grep -h -E 'ROOT|GEN|RUN|ORIENT|UFIX|CHUNK|alive classes|FB |ADR|ADT|G18C|G18T1|SAT |INFEASIBLE|FEASIBLE|WORKER DONE|Error|Traceback' logs/cloud_worker.log 2>/dev/null | tail -n 1 | cut -c1-150)" ;;
 push)
   B=$1; M=${2:-cloud results}
-  git add -f logs/cloud_stage1 logs/c1_g18 logs/c1_g18c logs/c1_g18t1 logs/c1_g18_regimes logs/fullblock logs/sat_local logs/ad logs/run_U_*.out logs/orbit_certs/adres_*.json.gz logs/cloud_done logs/cloud_worker.log logs/orient_*.jsonl logs/run_U_fix_*.jsonl logs/orbit_certs/ogen_*.json.gz logs/orbit_certs/*fix*.json.gz 2>/dev/null
+  for p in logs/cloud_stage1 logs/root logs/orbit_certs/root_*.json.gz logs/c1_g18 logs/c1_g18c logs/c1_g18t1 logs/c1_g18_regimes logs/fullblock logs/sat_local logs/ad logs/run_U_*.out logs/orbit_certs/adres_*.json.gz logs/cloud_done logs/cloud_worker.log logs/orient_*.jsonl logs/run_U_fix_*.jsonl logs/orbit_certs/ogen_*.json.gz logs/orbit_certs/*fix*.json.gz; do git add -f "$p" 2>/dev/null; done   # one by one: git add adds nothing if any pathspec is missing
   git -c user.name="amazing-source" -c user.email="206353265+amazing-source@users.noreply.github.com" commit -q -m "$M" && git push -q origin HEAD:"$B" 2>&1 | tail -2; echo "PUSHED $B $(git rev-parse --short HEAD)" ;;
 esac
