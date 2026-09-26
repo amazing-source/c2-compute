@@ -1,0 +1,8 @@
+fb fullblock_cpsat.py cfg_6cyc.json 3600 4
+fb fullblock_cpsat.py cfg_24.json 3600 4
+fb fullblock_odd_cpsat.py cfg_6cyc.json 3600 4
+fb fullblock_odd_cpsat.py cfg_24.json 3600 4
+fb fullblock_odd_cpsat.py cfg_5827_a.json 3600 4
+fb fullblock_odd_cpsat.py cfg_5827_b.json 3600 4
+fb fullblock_cpsat.py cfg_33.json 3600 4
+fb fullblock_cpsat.py cfg_222.json 3600 4
