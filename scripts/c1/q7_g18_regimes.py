@@ -86,7 +86,7 @@ def filtered(tau, eta, tb, pred=None, zset=None):
     return res
 
 
-def local_ilp(tau, eta, res, tl=30):
+def local_ilp(tau, eta, res, tl=120):          # C2: 30 -> 120 s, on C1's instruction
     if any(len(r[0]) == 0 for r in res):
         return 'dead-unary'
     k2, k3 = K2(tau, eta), K3(tau, eta)

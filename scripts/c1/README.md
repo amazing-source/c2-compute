@@ -1,1 +1,1 @@
-Modules de C1 (amazing-source/conway99-c1, commit 44d1da0, code/), copiés sans modification : balayages g- = 18 (q:7), dont le modèle CP-SAT renforcé q7_rigid_cpsat2.py.
+Modules de C1 (amazing-source/conway99-c1, commit 8bbc335, code/), copiés sans modification, sauf le temps limite par défaut de local_ilp dans q7_g18_regimes.py (30 -> 120 s, à la demande de C1).

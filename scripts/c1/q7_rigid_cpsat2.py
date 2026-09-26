@@ -59,7 +59,7 @@ def shadow_info(e, e2):
     return s, (next(iter(canc)) if canc else None)
 
 
-def make_model(tau, eta, opts, Zm):
+def make_model(tau, eta, opts, Zm, skip_local=False):
     n = len(opts)
     m = cp_model.CpModel()
     x = [[m.NewBoolVar('x%d_%d' % (f, j)) for j in range(len(opts[f]))] for f in range(n)]
@@ -86,12 +86,13 @@ def make_model(tau, eta, opts, Zm):
             for b in e2:
                 for d in e:
                     acc3.setdefault((b, d), []).append(v)
-    for e in nonmu:
-        m.AddExactlyOne(use[e])
-    for a in L:
-        for b in L:
-            m.Add(sum(acc2.get((a, b), [])) == int(k2[a, b]))
-            m.Add(sum(acc3.get((a, b), [])) == int(k3[a, b]))
+    if not skip_local:
+        for e in nonmu:
+            m.AddExactlyOne(use[e])
+        for a in L:
+            for b in L:
+                m.Add(sum(acc2.get((a, b), [])) == int(k2[a, b]))
+                m.Add(sum(acc3.get((a, b), [])) == int(k3[a, b]))
     # t_fg and pairwise support / channelling
     tv = {}
     for f in range(n):

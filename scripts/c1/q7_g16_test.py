@@ -176,14 +176,42 @@ def ball(tau, eta):
     return Pm % P7
 
 
+POINTWISE = False     # set True (or env Q7_POINTWISE=1) to add the pointwise lambda/mu filters (L1), (S1), (S2)
+
+
+def pointwise_ok(z, sz, e, e2, tau, eta):
+    """pointwise local conditions (lambda = 1 / mu = 2), valid at every block (C1, 27/09):
+    (L1) for every label a of the two blocks of z: not (a in Phi(z) and sigma a in Phi(sigma z));
+    (S1) for l in Phi(z): not (l in z and eta(l) in Phi(sigma z))            [lambda on the edge (c+,l)-z];
+    (S2) for l not in Phi(z): not (l in z and tau(l) in Phi(z) and eta(l) in Phi(sigma z))   [mu = 2];
+    and (S1), (S2) for sigma z with (Phi(sigma z), Phi(z))."""
+    blocks = {a // 2 for a in z}
+    for a in L:
+        if a // 2 in blocks and a in e and PI[a] in e2:
+            return False
+    for (zz, E, E2) in ((z, e, e2), (sz, e2, e)):
+        for l in L:
+            if l in zz:
+                if l in E:
+                    if eta[l] in E2:
+                        return False
+                elif tau[l] in E and eta[l] in E2:
+                    return False
+    return True
+
+
 def orbit_options(tau, eta, k2):
     """per far orbit: list of (e, e2) and the matrix of columns x (19 x n_opt)."""
+    import os
+    pw = POINTWISE or os.environ.get('Q7_POINTWISE') == '1'
     nonmu = [e for e in itertools.combinations(L, 2) if tau[e[0]] != e[1]]
     out = []
     for (z, sz) in FAR:
         ok1 = [e for e in nonmu if all(k2[a, b] > 0 for a in z for b in e)]
         ok2 = [e for e in nonmu if all(k2[a, b] > 0 for a in sz for b in e)]
         opts = [(e, e2) for e in ok1 for e2 in ok2 if e != e2]
+        if pw:
+            opts = [(e, e2) for (e, e2) in opts if pointwise_ok(z, sz, e, e2, tau, eta)]
         Xc = np.zeros((19, len(opts)), dtype=np.int64)
         for a in z:
             Xc[a // 2, :] = 1 if a % 2 == 0 else -1

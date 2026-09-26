@@ -1,1 +1,1 @@
-Scripts de « structures » (amazing-source/conway99-structures-lab, commit 8bd9fcf, involution/), copiés sans modification : modèle CP-SAT du bloc plein. Voir HANDOFF_FULLBLOCK.md.
+Scripts de « structures » (conway99-structures-lab, commits 8bd9fcf et 66642c0, involution/), copiés sans modification : bloc plein en CP-SAT (fullblock_*), système local en SAT (sat_local.py, iota_design.py).
