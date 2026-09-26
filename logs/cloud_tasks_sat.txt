@@ -1,4 +1,8 @@
 sat cfg_6cyc.json 14400
+sat cfg_6cyc.json 14400 6
 sat cfg_24.json 14400
+sat cfg_24.json 14400 6
 sat cfg_33.json 14400
+sat cfg_33.json 14400 6
 sat cfg_222.json 14400
+sat cfg_222.json 14400 6

@@ -26,10 +26,10 @@ run)
       adt) mkdir -p logs/ad && n=$(echo "$*" | tr ' /' '__' | cut -c1-80) && (cd scripts/structures_ad && ls ../../logs/ad/relaxed1017_*.log >/dev/null 2>&1 && cp ../../logs/ad/relaxed1017_*.log . 2>/dev/null; python3 retest_relaxed.py ${@:2} > "../../logs/ad/retest_$n.log" 2>&1) && echo "ADT $2 done" >> logs/cloud_worker.log ;;
       U)   LOWMEM=1 SMOOTH=0.6 TL=20000 python3 scripts/run_U.py $2 $4 $3 >> logs/cloud_worker.log 2>&1 ;;
       g18c) mkdir -p logs/c1_g18c && (cd scripts/c1 && Q7_POINTWISE=1 python3 q7_rigid_cpsat2.py $2 $3 $4 > ../../logs/c1_g18c/$2.out 2>&1) && echo "G18C $2: $(tail -n 1 logs/c1_g18c/$2.out | cut -c1-80)" >> logs/cloud_worker.log ;;
-      sat) b=${2%.json}; mkdir -p logs/sat_local tools
+      sat) b=${2%.json}; sb=""; if [ -n "$4" ]; then b="${b}_sb$4"; sb="--symbreak --prefix=$4"; fi; cp "scripts/structures/$2" "scripts/structures/$b.json" 2>/dev/null; mkdir -p logs/sat_local tools
            [ -x tools/cadical/build/cadical ] || (cd tools && rm -rf cadical && git clone -q https://github.com/arminbiere/cadical.git && cd cadical && ./configure > /dev/null 2>&1 && make -j4 > /dev/null 2>&1)
            [ -x tools/drat-trim/drat-trim ] || (cd tools && rm -rf drat-trim && git clone -q https://github.com/marijnheule/drat-trim.git && cd drat-trim && make > /dev/null 2>&1)
-           (cd scripts/structures && python3 sat_local.py $2 0 cadical195 --dimacs > "../../logs/sat_local/$b.encode.out" 2>&1)
+           (cd scripts/structures && python3 sat_local.py "$b.json" 0 cadical195 --dimacs $sb > "../../logs/sat_local/$b.encode.out" 2>&1)
            cnf="scripts/structures/$b.cnf"; pr="/tmp/$b.drat"
            timeout $3 tools/cadical/build/cadical -q "$cnf" "$pr" > "logs/sat_local/$b.cadical.out" 2>&1; rc=$?
            if [ $rc = 20 ]; then tools/drat-trim/drat-trim "$cnf" "$pr" > "logs/sat_local/$b.drattrim.out" 2>&1

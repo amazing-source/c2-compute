@@ -94,6 +94,14 @@ if __name__ == '__main__':
         cycles = []; mu, tau = cfg['mu'], cfg['tau']
     t0 = time.time()
     cnf, pool, far, edges = encode(mu, tau, cycles)
+    if '--symbreak' in sys.argv and cycles:        # C1's lex-leader symmetry breaking (conway99-c1 code/fullblock_symmetry.py)
+        sys.path.insert(0, __import__('os').path.join(__import__('os').path.dirname(__import__('os').path.abspath(__file__)), '..', 'c1'))   # C2: C1's module inside c2-compute
+        from fullblock_symmetry import lexleader_clauses
+        pref = int(next((a.split('=')[1] for a in sys.argv if a.startswith('--prefix=')), 10))
+        cnt = itertools.count()
+        lex = lexleader_clauses(mu, lambda z, e: pool.id(('x', z, e)), lambda: pool.id(('lex', next(cnt))), prefix_roots=pref)
+        cnf.extend(lex)
+        print('lex-leader clauses added:', len(lex), '(prefix %d)' % pref, flush=True)
     print(sys.argv[1], 'vars', pool.top, 'clauses', len(cnf.clauses), 'encode %.1fs' % (time.time() - t0), flush=True)
     if '--dimacs' in sys.argv:                 # for an external solver with a DRAT proof: cadical in.cnf proof.drat; drat-trim
         out = sys.argv[1].replace('.json', '.cnf')
