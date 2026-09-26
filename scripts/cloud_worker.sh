@@ -25,6 +25,7 @@ run)
       adr) mkdir -p logs/ad && (cd scripts/structures_ad && python3 run_relaxed.py ad_reps_10to21.json $2 $3 > ../../logs/ad/relaxed1017_$2_$3.log 2>&1) && echo "ADR $2 $3 done" >> logs/cloud_worker.log ;;
       adt) mkdir -p logs/ad && n=$(echo "$*" | tr ' /' '__' | cut -c1-80) && (cd scripts/structures_ad && ls ../../logs/ad/relaxed1017_*.log >/dev/null 2>&1 && cp ../../logs/ad/relaxed1017_*.log . 2>/dev/null; python3 retest_relaxed.py ${@:2} > "../../logs/ad/retest_$n.log" 2>&1) && echo "ADT $2 done" >> logs/cloud_worker.log ;;
       U)   LOWMEM=1 SMOOTH=0.6 TL=20000 python3 scripts/run_U.py $2 $4 $3 >> logs/cloud_worker.log 2>&1 ;;
+      g18c) mkdir -p logs/c1_g18c && (cd scripts/c1 && python3 q7_rigid_cpsat2.py $2 $3 $4 > ../../logs/c1_g18c/$2.out 2>&1) && echo "G18C $2: $(tail -n 1 logs/c1_g18c/$2.out | cut -c1-80)" >> logs/cloud_worker.log ;;
       g18r) mkdir -p logs/c1_g18_regimes && (cd scripts/c1 && python3 q7_g18_regimes.py $2 $3 $4 36000 >> ../../logs/cloud_worker.log 2>&1 && mv g18_regimes_*.json ../../logs/c1_g18_regimes/) ;;
     esac && touch "logs/cloud_done/$key"
   }
@@ -34,9 +35,9 @@ run)
   echo "WORKER DONE $T" >> logs/cloud_worker.log ;;
 status)
   T=$1; tot=$(grep -c . "$T"); done=$(ls logs/cloud_done 2>/dev/null | wc -l)
-  echo "$done/$tot $(grep -h -E 'GEN|RUN|ORIENT|UFIX|CHUNK|alive classes|FB |ADR|ADT|INFEASIBLE|FEASIBLE|WORKER DONE|Error|Traceback' logs/cloud_worker.log 2>/dev/null | tail -n 1 | cut -c1-150)" ;;
+  echo "$done/$tot $(grep -h -E 'GEN|RUN|ORIENT|UFIX|CHUNK|alive classes|FB |ADR|ADT|G18C|INFEASIBLE|FEASIBLE|WORKER DONE|Error|Traceback' logs/cloud_worker.log 2>/dev/null | tail -n 1 | cut -c1-150)" ;;
 push)
   B=$1; M=${2:-cloud results}
-  git add -f logs/cloud_stage1 logs/c1_g18 logs/c1_g18_regimes logs/fullblock logs/ad logs/run_U_*.out logs/orbit_certs/adres_*.json.gz logs/cloud_done logs/cloud_worker.log logs/orient_*.jsonl logs/run_U_fix_*.jsonl logs/orbit_certs/ogen_*.json.gz logs/orbit_certs/*fix*.json.gz 2>/dev/null
+  git add -f logs/cloud_stage1 logs/c1_g18 logs/c1_g18c logs/c1_g18_regimes logs/fullblock logs/ad logs/run_U_*.out logs/orbit_certs/adres_*.json.gz logs/cloud_done logs/cloud_worker.log logs/orient_*.jsonl logs/run_U_fix_*.jsonl logs/orbit_certs/ogen_*.json.gz logs/orbit_certs/*fix*.json.gz 2>/dev/null
   git -c user.name="amazing-source" -c user.email="206353265+amazing-source@users.noreply.github.com" commit -q -m "$M" && git push -q origin HEAD:"$B" 2>&1 | tail -2; echo "PUSHED $B $(git rev-parse --short HEAD)" ;;
 esac
