@@ -26,7 +26,17 @@ run)
       adt) mkdir -p logs/ad && n=$(echo "$*" | tr ' /' '__' | cut -c1-80) && (cd scripts/structures_ad && ls ../../logs/ad/relaxed1017_*.log >/dev/null 2>&1 && cp ../../logs/ad/relaxed1017_*.log . 2>/dev/null; python3 retest_relaxed.py ${@:2} > "../../logs/ad/retest_$n.log" 2>&1) && echo "ADT $2 done" >> logs/cloud_worker.log ;;
       U)   LOWMEM=1 SMOOTH=0.6 TL=20000 python3 scripts/run_U.py $2 $4 $3 >> logs/cloud_worker.log 2>&1 ;;
       g18c) mkdir -p logs/c1_g18c && (cd scripts/c1 && Q7_POINTWISE=1 python3 q7_rigid_cpsat2.py $2 $3 $4 > ../../logs/c1_g18c/$2.out 2>&1) && echo "G18C $2: $(tail -n 1 logs/c1_g18c/$2.out | cut -c1-80)" >> logs/cloud_worker.log ;;
-      sat) mkdir -p logs/sat_local && (cd scripts/structures && python3 sat_local.py $2 $3 > "../../logs/sat_local/${2%.json}.out" 2>&1; cp cfg_*satsol*.json ../../logs/sat_local/ 2>/dev/null; true) && echo "SAT $2: $(grep -h -i -E 'unsat|sat|unknown' "logs/sat_local/${2%.json}.out" | tail -n 1 | cut -c1-80)" >> logs/cloud_worker.log ;;
+      sat) b=${2%.json}; mkdir -p logs/sat_local tools
+           [ -x tools/cadical/build/cadical ] || (cd tools && rm -rf cadical && git clone -q https://github.com/arminbiere/cadical.git && cd cadical && ./configure > /dev/null 2>&1 && make -j4 > /dev/null 2>&1)
+           [ -x tools/drat-trim/drat-trim ] || (cd tools && rm -rf drat-trim && git clone -q https://github.com/marijnheule/drat-trim.git && cd drat-trim && make > /dev/null 2>&1)
+           (cd scripts/structures && python3 sat_local.py $2 0 cadical195 --dimacs > "../../logs/sat_local/$b.encode.out" 2>&1)
+           cnf="scripts/structures/$b.cnf"; pr="/tmp/$b.drat"
+           timeout $3 tools/cadical/build/cadical -q "$cnf" "$pr" > "logs/sat_local/$b.cadical.out" 2>&1; rc=$?
+           if [ $rc = 20 ]; then tools/drat-trim/drat-trim "$cnf" "$pr" > "logs/sat_local/$b.drattrim.out" 2>&1
+             echo "SAT $2: UNSAT, drat-trim $(grep -o 's VERIFIED\|s NOT VERIFIED' logs/sat_local/$b.drattrim.out | head -1), cnf sha $(sha256sum "$cnf" | cut -c1-16), proof sha $(sha256sum "$pr" | cut -c1-16) $(du -h "$pr" | cut -f1)" >> logs/cloud_worker.log
+           elif [ $rc = 10 ]; then echo "SAT $2: SATISFIABLE (witness in logs/sat_local/$b.cadical.out)" >> logs/cloud_worker.log
+           else echo "SAT $2: UNKNOWN (cadical rc $rc after $3 s)" >> logs/cloud_worker.log; fi
+           true ;;
       g18t1) mkdir -p logs/c1_g18t1 && (cd scripts/c1 && Q7_POINTWISE=1 python3 q7_t1_cpsat.py $2 $3 $4 > ../../logs/c1_g18t1/$2.out 2>&1) && echo "G18T1 $2: $(tail -n 1 logs/c1_g18t1/$2.out | cut -c1-80)" >> logs/cloud_worker.log ;;
       g18r) mkdir -p logs/c1_g18_regimes && (cd scripts/c1 && Q7_POINTWISE=1 python3 q7_g18_regimes.py $2 $3 $4 100000 >> ../../logs/cloud_worker.log 2>&1 && mv g18_regimes_*.json ../../logs/c1_g18_regimes/) ;;
     esac && touch "logs/cloud_done/$key"

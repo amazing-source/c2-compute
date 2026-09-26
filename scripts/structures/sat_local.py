@@ -95,6 +95,11 @@ if __name__ == '__main__':
     t0 = time.time()
     cnf, pool, far, edges = encode(mu, tau, cycles)
     print(sys.argv[1], 'vars', pool.top, 'clauses', len(cnf.clauses), 'encode %.1fs' % (time.time() - t0), flush=True)
+    if '--dimacs' in sys.argv:                 # for an external solver with a DRAT proof: cadical in.cnf proof.drat; drat-trim
+        out = sys.argv[1].replace('.json', '.cnf')
+        cnf.to_file(out, comments=['c local system (i)-(iii) + full-block extras + C1 pointwise (L1,S1,S2)', 'c cfg ' + json.dumps(cfg)])
+        print('DIMACS written to', out, flush=True)
+        sys.exit(0)
     with Solver(name=sname, bootstrap_with=cnf.clauses) as s:
         timer = threading.Timer(secs, lambda: s.interrupt())
         timer.start()
