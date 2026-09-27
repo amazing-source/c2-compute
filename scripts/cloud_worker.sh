@@ -1,7 +1,7 @@
 #!/bin/bash
 # Cloud worker (note 44): runs a task file on all cores with minimal console output (the agent only polls 'status').
 #   setup                       pip install the numeric stack (quiet)
-#   task types also: 'adr START END' / 'adt reps logs...' (structures' AD sweep; adr runs in phase 1), 'U json index prefix' (unified model), 'fb script cfg seconds workers' (structures' full-block CP-SAT; run the fb file with P=1), 'g18s START END' (C1's g-=18 t=0 split sweep, recorded) and 'g18r T START END' (C1's torsion regimes), 'gp G' (C1's even test g+ = G, G = 14 or 16), 'satp cfg secs' (structures' sat_local via pysat: saves a local solution if SAT), 'tier TYPES.json i secs [proof]' (C1's block types: CNF with lex-leader, CaDiCaL; SAT -> decoded, checked local solution; proof -> DRAT + drat-trim), 'rt ci rep' (root_job.py)
+#   task types also: 'adr START END' / 'adt reps logs...' (structures' AD sweep; adr runs in phase 1), 'U json index prefix' (unified model), 'fb script cfg seconds workers' (structures' full-block CP-SAT; run the fb file with P=1), 'g18s START END' (C1's g-=18 t=0 split sweep, recorded) and 'g18r T START END' (C1's torsion regimes), 'gp G' (C1's even test g+ = G, G = 14 or 16), 'satp cfg secs' (structures' sat_local via pysat: saves a local solution if SAT), 'tier / tier2 TYPES.json i secs [proof]' (C1's block types; tier2 = structures' encoding 2 + the same lex-leader: CNF with lex-leader, CaDiCaL; SAT -> decoded, checked local solution; proof -> DRAT + drat-trim), 'rt ci rep' (root_job.py)
 #   run <taskfile> [P]          phase 1: 'gen ci rep' lines; phase 2: 'run ci rep lo hi' lines (stage 1, cloud_stage1.py);
 #                               also 'or ci idx' (orientation root LP) and 'fx json index prefix' (unified block fixing)
 #   status <taskfile>           one line: done/total and the last result
@@ -49,6 +49,20 @@ run)
            else timeout $4 tools/cadical/build/cadical -q "$cnf" > logs/tiers/$n.cadical.out 2>&1; rc=$?; pv=""; fi
            if [ $rc = 20 ]; then echo "TIER $n: UNSAT$pv ($(head -n 1 logs/tiers/$n.encode.out | cut -c1-60))" >> logs/cloud_worker.log
            elif [ $rc = 10 ]; then python3 scripts/c1_tiers/decode_model.py scripts/c1_tiers/data/$2 $3 logs/tiers/$n.cadical.out "$cnf" logs/tiers/${n}_satsol.json > logs/tiers/$n.decode.out 2>&1
+             echo "TIER $n: SAT -> logs/tiers/${n}_satsol.json ($(cat logs/tiers/$n.decode.out | tail -n 1))" >> logs/cloud_worker.log
+           else echo "TIER $n: UNKNOWN (cadical rc $rc after $4 s)" >> logs/cloud_worker.log; fi
+           gzip -f logs/tiers/$n.cadical.out; true ;;
+      tier2) mkdir -p logs/tiers tools && t=${2%.json} && n=${t}_$(printf %04d $3)_enc2 && cd_=/tmp/tiers_cnf/$t && cnf=$cd_/type_$(printf %04d $3)_enc2.cnf
+           [ -x tools/cadical/build/cadical ] || (cd tools && rm -rf cadical && git clone -q https://github.com/arminbiere/cadical.git && cd cadical && ./configure > /dev/null 2>&1 && make -j4 > /dev/null 2>&1)
+           (cd scripts/c1_tiers && SAT_LOCAL_DIR=../structures python3 enc2_dimacs.py data/$2 $3 $cd_ > ../../logs/tiers/$n.encode.out 2>&1)
+           if [ "$5" = proof ]; then
+             [ -x tools/drat-trim/drat-trim ] || (cd tools && rm -rf drat-trim && git clone -q https://github.com/marijnheule/drat-trim.git && cd drat-trim && make > /dev/null 2>&1)
+             timeout $4 tools/cadical/build/cadical -q "$cnf" /tmp/$n.drat > logs/tiers/$n.cadical.out 2>&1; rc=$?
+             [ $rc = 20 ] && tools/drat-trim/drat-trim "$cnf" /tmp/$n.drat -t 200000 > logs/tiers/$n.drattrim.out 2>&1
+             pv=" proof $(du -h /tmp/$n.drat 2>/dev/null | cut -f1), drat-trim $(grep -o 's VERIFIED\|s NOT VERIFIED' logs/tiers/$n.drattrim.out 2>/dev/null | head -1), cnf sha $(sha256sum "$cnf" | cut -c1-16)"; rm -f /tmp/$n.drat
+           else timeout $4 tools/cadical/build/cadical -q "$cnf" > logs/tiers/$n.cadical.out 2>&1; rc=$?; pv=""; fi
+           if [ $rc = 20 ]; then echo "TIER $n: UNSAT$pv ($(head -n 1 logs/tiers/$n.encode.out | cut -c1-60))" >> logs/cloud_worker.log
+           elif [ $rc = 10 ]; then python3 scripts/c1_tiers/decode_model.py scripts/c1_tiers/data/$2 $3 logs/tiers/$n.cadical.out "$cnf" logs/tiers/${n}_satsol.json --enc2 > logs/tiers/$n.decode.out 2>&1
              echo "TIER $n: SAT -> logs/tiers/${n}_satsol.json ($(cat logs/tiers/$n.decode.out | tail -n 1))" >> logs/cloud_worker.log
            else echo "TIER $n: UNKNOWN (cadical rc $rc after $4 s)" >> logs/cloud_worker.log; fi
            gzip -f logs/tiers/$n.cadical.out; true ;;

@@ -1,10 +1,11 @@
 """C2: decode a CaDiCaL model ('v' lines) of a sat_local_batch.py CNF into a local solution {cfg, Phi}, with the same map as
 structures' sat_local.py (Phi[str(far z)] = edge e for every true x(z, e)), after checking that the model satisfies every clause
-of the exported CNF.   Usage: python decode_model.py TYPES.json IDX CADICAL_OUT CNF OUT.json"""
+of the exported CNF.   Usage: python decode_model.py TYPES.json IDX CADICAL_OUT CNF OUT.json [--enc2]"""
 import sys, os, json
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.environ.get('SAT_LOCAL_DIR', os.path.join(HERE, '..', 'structures'))); sys.path.insert(0, HERE)
 from sat_local import encode
+if '--enc2' in sys.argv: from sat_local2 import encode
 types, idx, cout, cnfpath, outpath = json.load(open(sys.argv[1])), int(sys.argv[2]), sys.argv[3], sys.argv[4], sys.argv[5]
 val = {}
 for line in open(cout):
