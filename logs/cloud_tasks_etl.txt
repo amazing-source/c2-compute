@@ -1,3 +1,13 @@
-satp rand_type_7_1.json 14400
-satp rand_type_7_3.json 14400
-satp rand_type_7_5.json 14400
+satp etl_detsq_00.json 7200
+satp etl_detsq_01.json 7200
+satp etl_detsq_02.json 7200
+satp etl_detsq_03.json 7200
+satp etl_detsq_04.json 7200
+satp etl_detsq_05.json 7200
+satp etl_detsq_06.json 7200
+satp etl_detsq_07.json 7200
+satp etl_detsq_08.json 7200
+satp etl_detsq_09.json 7200
+satp rand_type_7_3.json 7200
+sat rand_type_7_1.json 14400
+sat rand_type_7_5.json 14400
