@@ -1,0 +1,4 @@
+tier largeT_tier12.json 7 14400
+tier largeT_tier12.json 8 14400
+tier largeT_tier12.json 9 14400
+tier largeT_tier12.json 10 14400

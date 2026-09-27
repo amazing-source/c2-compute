@@ -1,0 +1,1 @@
+Scripts de « structures » (conway99-structures-lab, commits 8bd9fcf et e6484e3, involution/), copiés sans modification, sauf le chemin du module de C1 dans sat_local.py (pointé vers scripts/c1 de ce dépôt).
