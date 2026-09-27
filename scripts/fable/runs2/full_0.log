@@ -1,0 +1,6 @@
+Omega: min eig 0.0000, trace 180.0
+m=7 nl=12 np=60 nr=60 no=30 nk=19 resdim=4 rowweight=10 r=3
+combined search: candidates per orbit avg 2104
+RESULT incomplete: nodes 2605056, maxdepth 6, solutions 0, 900.2s
+psd prunes 4594
+avg options per depth: d0:96.0(n=1) d1:46.0(n=7) d2:52.9(n=476) d3:20.2(n=61515) d4:21.6(n=2423194) d5:6.9(n=114008) d6:8.5(n=3418)
