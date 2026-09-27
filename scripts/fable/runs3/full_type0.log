@@ -1,2 +1,3 @@
 type 0 (pivots 0): vars 577271, clauses 1308595, families {'degree': 42, 'rootroot': 1764, 'introot': 588, 'alldis': 0}, build 4.8s
 solver cadical195 alldis False
+status UNKNOWN (killed after >= 32 CPU-min each; pysat cadical195 interrupt did not fire)
