@@ -1,0 +1,167 @@
+GEN 9 4: 38 leaves A=None done=True
+GEN 9 6: 150 leaves A=None done=True
+GEN 9 5: 330 leaves A=None done=True
+GEN 9 12: 8 leaves A=None done=True
+GEN 9 13: 34 leaves A=None done=True
+GEN 9 14: 175 leaves A=None done=True
+GEN 9 24: 42 leaves A=None done=True
+GEN 9 15: 784 leaves A=None done=True
+GEN 9 7: 1270 leaves A=None done=True
+GEN 9 28: 180 leaves A=None done=True
+GEN 9 32: 54 leaves A=None done=True
+GEN 9 33: 454 leaves A=None done=True
+GEN 9 34: 189 leaves A=None done=True
+GEN 9 36: 28 leaves A=None done=True
+GEN 9 30: 8320 leaves A=None done=True
+GEN 9 35: 453 leaves A=None done=True
+GEN 9 38: 204 leaves A=None done=True
+GEN 9 31: 17068 leaves A=None done=True
+GEN 9 40: 36 leaves A=None done=True
+GEN 9 41: 200 leaves A=None done=True
+GEN 9 42: 72 leaves A=None done=True
+GEN 9 37: 7776 leaves A=None done=True
+GEN 9 43: 291 leaves A=None done=True
+GEN 9 45: 36 leaves A=None done=True
+GEN 9 44: 36 leaves A=None done=True
+GEN 9 50: 222 leaves A=None done=True
+GEN 9 51: 180 leaves A=None done=True
+GEN 9 52: 21 leaves A=None done=True
+GEN 9 54: 85 leaves A=None done=True
+GEN 9 49: 7776 leaves A=None done=True
+GEN 9 73: 9108 leaves A=None done=True
+GEN 9 55: 17444 leaves A=None done=True
+GEN 9 70: 9324 leaves A=None done=True
+GEN 9 39: 29918 leaves A=None done=True
+GEN 9 82: 146331 leaves A=None done=True
+RUN 9 4 [0,38): dead 38 open 0 checked 2 invalid 0 6s
+RUN 9 12 [0,8): dead 8 open 0 checked 1 invalid 0 1s
+RUN 9 13 [0,34): dead 34 open 0 checked 2 invalid 0 1s
+RUN 9 14 [0,175): dead 175 open 0 checked 9 invalid 0 4s
+RUN 9 6 [0,150): dead 145 open 5 checked 8 invalid 0 23s
+RUN 9 24 [0,42): dead 42 open 0 checked 3 invalid 0 2s
+RUN 9 28 [0,180): dead 180 open 0 checked 9 invalid 0 10s
+RUN 9 5 [0,330): dead 278 open 52 checked 14 invalid 0 51s
+RUN 9 15 [0,784): dead 771 open 13 checked 39 invalid 0 56s
+RUN 9 7 [0,1270): dead 1167 open 103 checked 59 invalid 0 167s
+RUN 9 30 [7500,8320): dead 810 open 10 checked 41 invalid 0 103s
+RUN 9 30 [0,2500): dead 2486 open 14 checked 125 invalid 0 257s
+RUN 9 30 [5000,7500): dead 2476 open 24 checked 124 invalid 0 240s
+RUN 9 30 [2500,5000): dead 2468 open 32 checked 124 invalid 0 298s
+RUN 9 31 [0,2500): dead 2471 open 29 checked 124 invalid 0 265s
+RUN 9 31 [2500,5000): dead 2456 open 44 checked 123 invalid 0 276s
+RUN 9 31 [5000,7500): dead 2417 open 83 checked 121 invalid 0 299s
+RUN 9 31 [7500,10000): dead 2412 open 88 checked 121 invalid 0 350s
+RUN 9 32 [0,54): dead 54 open 0 checked 3 invalid 0 4s
+RUN 9 33 [0,454): dead 440 open 14 checked 22 invalid 0 61s
+RUN 9 34 [0,189): dead 186 open 3 checked 10 invalid 0 21s
+RUN 9 31 [15000,17068): dead 2029 open 39 checked 102 invalid 0 219s
+RUN 9 36 [0,28): dead 28 open 0 checked 2 invalid 0 1s
+RUN 9 31 [10000,12500): dead 2435 open 65 checked 122 invalid 0 321s
+RUN 9 35 [0,453): dead 419 open 34 checked 21 invalid 0 78s
+RUN 9 31 [12500,15000): dead 2407 open 93 checked 121 invalid 0 327s
+RUN 9 37 [7500,7776): dead 276 open 0 checked 14 invalid 0 18s
+RUN 9 38 [0,204): dead 204 open 0 checked 11 invalid 0 12s
+RUN 9 37 [0,2500): dead 2500 open 0 checked 125 invalid 0 143s
+RUN 9 37 [2500,5000): dead 2500 open 0 checked 125 invalid 0 149s
+RUN 9 37 [5000,7500): dead 2500 open 0 checked 125 invalid 0 163s
+RUN 9 39 [2500,5000): dead 2494 open 6 checked 125 invalid 0 280s
+RUN 9 39 [0,2500): dead 2436 open 64 checked 122 invalid 0 348s
+RUN 9 39 [5000,7500): dead 2484 open 16 checked 125 invalid 0 278s
+RUN 9 39 [7500,10000): dead 2379 open 121 checked 119 invalid 0 368s
+RUN 9 39 [10000,12500): dead 2473 open 27 checked 124 invalid 0 292s
+RUN 9 39 [15000,17500): dead 2480 open 20 checked 124 invalid 0 317s
+RUN 9 39 [12500,15000): dead 2467 open 33 checked 124 invalid 0 339s
+RUN 9 39 [17500,20000): dead 2338 open 162 checked 117 invalid 0 426s
+RUN 9 39 [22500,25000): dead 2467 open 33 checked 124 invalid 0 312s
+RUN 9 39 [20000,22500): dead 2429 open 71 checked 122 invalid 0 365s
+RUN 9 40 [0,36): dead 34 open 2 checked 2 invalid 0 6s
+RUN 9 42 [0,72): dead 72 open 0 checked 4 invalid 0 5s
+RUN 9 39 [25000,27500): dead 2422 open 78 checked 122 invalid 0 314s
+RUN 9 44 [0,36): dead 36 open 0 checked 2 invalid 0 2s
+RUN 9 41 [0,200): dead 190 open 10 checked 10 invalid 0 22s
+RUN 9 45 [0,36): dead 36 open 0 checked 2 invalid 0 3s
+RUN 9 43 [0,291): dead 283 open 8 checked 15 invalid 0 34s
+RUN 9 49 [0,2500): dead 2500 open 0 checked 125 invalid 0 118s
+RUN 9 49 [7500,7776): dead 276 open 0 checked 14 invalid 0 7s
+RUN 9 49 [2500,5000): dead 2500 open 0 checked 125 invalid 0 137s
+RUN 9 49 [5000,7500): dead 2500 open 0 checked 125 invalid 0 128s
+RUN 9 52 [0,21): dead 21 open 0 checked 2 invalid 0 2s
+RUN 9 54 [0,85): dead 85 open 0 checked 5 invalid 0 6s
+RUN 9 51 [0,180): dead 180 open 0 checked 9 invalid 0 30s
+RUN 9 50 [0,222): dead 219 open 3 checked 11 invalid 0 45s
+RUN 9 39 [27500,29918): dead 2362 open 56 checked 119 invalid 0 368s
+RUN 9 55 [0,2500): dead 2500 open 0 checked 125 invalid 0 133s
+RUN 9 55 [5000,7500): dead 2497 open 3 checked 125 invalid 0 176s
+RUN 9 55 [2500,5000): dead 2491 open 9 checked 125 invalid 0 209s
+RUN 9 55 [10000,12500): dead 2497 open 3 checked 125 invalid 0 185s
+RUN 9 55 [7500,10000): dead 2465 open 35 checked 124 invalid 0 246s
+RUN 9 55 [15000,17444): dead 2444 open 0 checked 123 invalid 0 139s
+RUN 9 55 [12500,15000): dead 2492 open 8 checked 125 invalid 0 216s
+RUN 9 70 [7500,9324): dead 1821 open 3 checked 92 invalid 0 202s
+RUN 9 70 [2500,5000): dead 2498 open 2 checked 125 invalid 0 274s
+RUN 9 70 [0,2500): dead 2485 open 15 checked 125 invalid 0 300s
+RUN 9 70 [5000,7500): dead 2500 open 0 checked 125 invalid 0 275s
+RUN 9 73 [7500,9108): dead 1605 open 3 checked 81 invalid 0 119s
+RUN 9 73 [2500,5000): dead 2500 open 0 checked 125 invalid 0 178s
+RUN 9 73 [0,2500): dead 2494 open 6 checked 125 invalid 0 199s
+RUN 9 73 [5000,7500): dead 2499 open 1 checked 125 invalid 0 205s
+RUN 9 82 [0,2500): dead 1671 open 829 checked 84 invalid 0 623s
+RUN 9 82 [5000,7500): dead 1467 open 1033 checked 74 invalid 0 667s
+RUN 9 82 [2500,5000): dead 1456 open 1044 checked 73 invalid 0 692s
+RUN 9 82 [7500,10000): dead 1381 open 1119 checked 70 invalid 0 664s
+RUN 9 82 [15000,17500): dead 1967 open 533 checked 99 invalid 0 534s
+RUN 9 82 [17500,20000): dead 2128 open 372 checked 107 invalid 0 536s
+RUN 9 82 [10000,12500): dead 1094 open 1406 checked 55 invalid 0 712s
+RUN 9 82 [12500,15000): dead 1165 open 1335 checked 59 invalid 0 681s
+RUN 9 82 [20000,22500): dead 1746 open 754 checked 88 invalid 0 625s
+RUN 9 82 [22500,25000): dead 1196 open 1304 checked 60 invalid 0 728s
+RUN 9 82 [27500,30000): dead 1462 open 1038 checked 74 invalid 0 648s
+RUN 9 82 [25000,27500): dead 1296 open 1204 checked 65 invalid 0 721s
+RUN 9 82 [30000,32500): dead 1181 open 1319 checked 60 invalid 0 697s
+RUN 9 82 [32500,35000): dead 1174 open 1326 checked 59 invalid 0 699s
+RUN 9 82 [35000,37500): dead 1343 open 1157 checked 68 invalid 0 696s
+RUN 9 82 [37500,40000): dead 1270 open 1230 checked 64 invalid 0 712s
+RUN 9 82 [40000,42500): dead 1438 open 1062 checked 72 invalid 0 669s
+RUN 9 82 [42500,45000): dead 1795 open 705 checked 90 invalid 0 633s
+RUN 9 82 [45000,47500): dead 1710 open 790 checked 86 invalid 0 657s
+RUN 9 82 [47500,50000): dead 1660 open 840 checked 83 invalid 0 678s
+RUN 9 82 [50000,52500): dead 1315 open 1185 checked 66 invalid 0 705s
+RUN 9 82 [52500,55000): dead 1243 open 1257 checked 63 invalid 0 714s
+RUN 9 82 [55000,57500): dead 1419 open 1081 checked 71 invalid 0 697s
+RUN 9 82 [57500,60000): dead 1389 open 1111 checked 70 invalid 0 712s
+RUN 9 82 [60000,62500): dead 1382 open 1118 checked 70 invalid 0 709s
+RUN 9 82 [62500,65000): dead 1322 open 1178 checked 67 invalid 0 715s
+RUN 9 82 [65000,67500): dead 1085 open 1415 checked 55 invalid 0 787s
+RUN 9 82 [67500,70000): dead 1090 open 1410 checked 55 invalid 0 752s
+RUN 9 82 [70000,72500): dead 1738 open 762 checked 87 invalid 0 611s
+RUN 9 82 [72500,75000): dead 2040 open 460 checked 102 invalid 0 546s
+RUN 9 82 [75000,77500): dead 1594 open 906 checked 80 invalid 0 614s
+RUN 9 82 [77500,80000): dead 1239 open 1261 checked 62 invalid 0 737s
+RUN 9 82 [80000,82500): dead 1193 open 1307 checked 60 invalid 0 708s
+RUN 9 82 [82500,85000): dead 1139 open 1361 checked 57 invalid 0 687s
+RUN 9 82 [85000,87500): dead 873 open 1627 checked 44 invalid 0 683s
+RUN 9 82 [87500,90000): dead 930 open 1570 checked 47 invalid 0 679s
+RUN 9 82 [92500,95000): dead 2025 open 475 checked 102 invalid 0 517s
+RUN 9 82 [90000,92500): dead 1943 open 557 checked 98 invalid 0 552s
+RUN 9 82 [95000,97500): dead 1722 open 778 checked 87 invalid 0 626s
+RUN 9 82 [97500,100000): dead 1367 open 1133 checked 69 invalid 0 659s
+RUN 9 82 [100000,102500): dead 1351 open 1149 checked 68 invalid 0 685s
+RUN 9 82 [102500,105000): dead 1501 open 999 checked 76 invalid 0 747s
+RUN 9 82 [105000,107500): dead 1447 open 1053 checked 73 invalid 0 801s
+RUN 9 82 [107500,110000): dead 1540 open 960 checked 77 invalid 0 736s
+RUN 9 82 [110000,112500): dead 1008 open 1492 checked 51 invalid 0 791s
+RUN 9 82 [112500,115000): dead 1298 open 1202 checked 65 invalid 0 787s
+RUN 9 82 [115000,117500): dead 1383 open 1117 checked 70 invalid 0 765s
+RUN 9 82 [117500,120000): dead 1119 open 1381 checked 56 invalid 0 803s
+RUN 9 82 [120000,122500): dead 1300 open 1200 checked 65 invalid 0 761s
+RUN 9 82 [122500,125000): dead 1406 open 1094 checked 71 invalid 0 680s
+RUN 9 82 [125000,127500): dead 1102 open 1398 checked 56 invalid 0 717s
+RUN 9 82 [127500,130000): dead 1192 open 1308 checked 60 invalid 0 707s
+RUN 9 82 [130000,132500): dead 1718 open 782 checked 86 invalid 0 674s
+RUN 9 82 [132500,135000): dead 1371 open 1129 checked 69 invalid 0 755s
+RUN 9 82 [135000,137500): dead 1622 open 878 checked 82 invalid 0 695s
+RUN 9 82 [137500,140000): dead 1706 open 794 checked 86 invalid 0 683s
+RUN 9 82 [145000,146331): dead 992 open 339 checked 50 invalid 0 354s
+RUN 9 82 [140000,142500): dead 1437 open 1063 checked 72 invalid 0 745s
+RUN 9 82 [142500,145000): dead 1663 open 837 checked 84 invalid 0 686s
+WORKER DONE logs/cloud_tasks_s1a.txt
