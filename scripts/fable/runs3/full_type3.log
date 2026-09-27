@@ -1,0 +1,2 @@
+type 3 (pivots 12): vars 579765, clauses 1312485, families {'degree': 42, 'rootroot': 1764, 'introot': 588, 'alldis': 0}, build 4.8s
+solver cadical195 alldis False
