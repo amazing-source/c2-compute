@@ -1,0 +1,6 @@
+step12
+comb
+iota2
+data_*.txt
+__pycache__/
+*.o
