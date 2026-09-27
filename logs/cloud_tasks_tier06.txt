@@ -1,0 +1,7 @@
+tier largeT_tier6.json 67 28800
+tier largeT_tier6.json 77 28800
+tier largeT_tier6.json 79 28800
+tier largeT_tier6.json 93 28800
+tier largeT_tier6.json 94 28800
+tier largeT_tier6.json 104 28800
+tier largeT_tier6.json 105 28800
