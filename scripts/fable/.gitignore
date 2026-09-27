@@ -4,3 +4,4 @@ iota2
 data_*.txt
 __pycache__/
 *.o
+certs/
